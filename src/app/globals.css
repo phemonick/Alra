@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Libre Baskerville", Georgia, serif;
+  --color-pine-950: #0e2a1c;
+  --color-pine-800: #1a5c3a;
+  --color-gold-500: #c9a227;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #1c2420;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+a, button, input, select, textarea {
+  transition-duration: 180ms;
+}
+
+:focus-visible {
+  outline: 3px solid #c9a227;
+  outline-offset: 3px;
+}
+
+.display-type {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.fine-grid {
+  background-image:
+    linear-gradient(rgba(14, 42, 28, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 42, 28, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal 650ms cubic-bezier(.2,.75,.2,1) both;
+  }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::selection {
+  background: #c9a227;
+  color: #0e2a1c;
+}
