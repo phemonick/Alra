@@ -33,8 +33,8 @@ npm run dev                  # http://localhost:3000
 - Spam: honeypot field + minimum-fill-time trap (`ENQUIRY_MIN_FILL_SECONDS`).
 - Privacy notice inline under the form.
 
-## Integrations still needing credentials
-- `FORMSPREE_FORM_ID` — preferred production delivery, notifying verified `info@alratraining.com` which forwards to both personal inboxes. See `EMAIL_SETUP.md` for setup, quotas and live verification.
+## Integrations
+- `FORMSPREE_FORM_ID` — configured in production, notifying verified `info@alratraining.com` which forwards to both personal inboxes. The live enquiry and forwarding delivery were verified on 6 October 2026. See `EMAIL_SETUP.md` for evidence, quotas and operation.
 - `ENQUIRY_WEBHOOK_URL` — alternative JSON webhook for a company backend; ignored when the Formspree ID is set.
 - Real SMTP/transactional-email provider if you want auto-replies (not yet wired).
 - Brochure PDF URL, when an approved brochure is available.
@@ -43,7 +43,7 @@ npm run dev                  # http://localhost:3000
 
 ## Business details needed before launch
 1. Logo file + brand-green confirmation (#0e2a1c / #1a5c3a + gold #c9a227 currently).
-2. Final production domain and enquiry-delivery integration.
+2. Production domain `alratraining.com` and enquiry delivery are configured; monitor renewals and the free submission quota.
 3. Per programme: duration, delivery mode(s), venue(s), fees, schedule, certification route wording.
 4. HCD/TIP: past project experience you *can* factually claim (or confirm “no claims yet”), typical cohort sizes, delivery footprint (Lagos/PH/on-site?).
 5. Confirm or reject each of the 7 draft programmes before any go public; confirm facilitator credentials for NDT/AWS/CIPS routes.
@@ -58,7 +58,7 @@ npm run build && npm start
 Run `npm run test:quality` after a production build. Playwright starts an isolated production server on port 3110 and checks all public routes at 320, 375, 768 and 1440 pixels. It covers images, overflow, all axe findings, canonical URLs, internal links, keyboard navigation, API rejection cases and mocked delivery success/failure. Mocked delivery tests do not prove real email arrival. GitHub Actions repeats lint, build, runtime audit and browser checks.
 
 ## Remaining external launch requirements
-- Connect a free enquiry-delivery provider within its quota and verify real receipt in both personal inboxes. Until configured, production submissions return 503 rather than false success; direct email and WhatsApp remain available.
+- Monitor Formspree's free submission quota and export needed records before its history expires. A live enquiry was archived and forwarded to both personal addresses; Inbox versus Spam placement still needs owner confirmation. Manual company-address replies work through Zoho webmail, not Gmail "Send mail as".
 - Vercel Hobby excludes commercial use. Do not buy an upgrade without approval: choose a commercial-use-eligible free hosting plan and test its Next.js support before migration.
 - Confirm privacy retention, responsible staff access, genuine trainer credentials, approved photographs and attributable client feedback. Illustrative engagements are not completed projects; never invent results or endorsements.
 - Keep registrar renewal reminders and account recovery/MFA up to date. Verify production environment contact details after each deployment.

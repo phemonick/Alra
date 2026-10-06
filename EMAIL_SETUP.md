@@ -1,12 +1,21 @@
 # ALRA enquiry and email setup
 
-## Intended configuration
+## Verified configuration (6 October 2026)
+
+- Production website test reference: `0748c123-4e73-41c0-b7ce-0de07e83e5f5`, received at `2026-10-06T09:51:47.773Z`. The archived Formspree record contains Drilling Engineering, 12 participants, Contact context and the complete enquiry message.
+- ImprovMX logs show Gmail accepted notification copies for both personal addresses. The owner also supplied the received Formspree notification. Inbox versus Spam placement in both accounts has not been independently confirmed.
+- A separate test sent from the existing Zoho mailbox as `info@alratraining.com` appears in Sent, and the owner confirmed receipt. Professional replies can be sent from Zoho webmail; Gmail "Send mail as" has not been configured.
+- SMTP2GO registration returned "Error code 3 - Service unavailable". No SMTP2GO account or sending configuration was completed; use the working Zoho mailbox instead.
+- Code commit `949b473` passed 112 local browser checks and GitHub Actions run `37445502812`; its Vercel production deployment was ready before the live submission.
+- No paid plan, subscription or DNS change was enabled during this setup. The existing Zoho subscription status is not newly verified here.
+
+## Configuration
 
 - Website hosting stays unchanged for this email task. Vercel Hobby's commercial-use restriction remains a separate unresolved issue.
 - One Formspree form receives Contact, Corporate Training and HCD/TIP enquiries. Each record includes its page context, programme label and identifier, reference, received time and all enquiry fields.
 - Notify the verified address `info@alratraining.com`, which forwards through ImprovMX to `adedureo@gmail.com` and `jesufemiadekunle@gmail.com`. Formspree's two linked-email slots include the existing account login email, leaving one slot for ALRA. Never accept a recipient address from a website visitor.
 - Keep incoming `info@alratraining.com` mail forwarding through ImprovMX.
-- SMTP2GO Free can provide authenticated outgoing replies through Gmail. It is not an inbox and is not automatically connected by the website code.
+- Staff send professional replies using the existing Zoho webmail mailbox. Forwarded Gmail notifications do not themselves enable sending as the company address.
 - Do not enable a trial, paid plan, paid integration or automatic upgrade.
 
 ## Formspree setup
@@ -15,7 +24,7 @@
 2. Configure and verify `info@alratraining.com`. Confirm its forwarding destinations and that the form's notification action is active. Test receipt in both Gmail inboxes.
 3. Check spam/CAPTCHA settings. A server-to-server integration cannot silently solve an interactive CAPTCHA; test the actual configured form before enabling production.
 4. Set the server-only environment variable `FORMSPREE_FORM_ID` to the ID at the end of `https://formspree.io/f/FORM_ID` in Vercel Production. Redeploy to apply it. Never use a `NEXT_PUBLIC_` variable for server configuration.
-5. The API validates the enquiry, applies the existing honeypot and minimum fill time, then submits JSON with `Accept: application/json`. The visitor's `email` field supplies the reply-to address; `_subject` gives staff a readable notification title.
+5. The API validates the enquiry, applies the existing honeypot and minimum fill time, then submits JSON with `Accept: application/json`. The visitor's `email` field supplies the reply-to address; the programme label supplies a readable subject, with `_subject` also included.
 6. Provider errors, unconfirmed responses and network failures produce an error, preserving the visitor's draft for retry. Success means provider acceptance, not independently verified arrival in an inbox.
 
 ## Free-plan limits and operations
@@ -26,14 +35,14 @@ Above the quota, Formspree stops normal processing and email notifications. It m
 
 The quota cannot be reliably monitored from an individual submission response. Changing providers or purchasing capacity requires an explicit decision, not an automatic paid upgrade.
 
-## Outgoing email setup
+## Outgoing email operation
 
-1. Sign up for SMTP2GO Free and complete any account review. Its current allowance is 1,000 messages monthly and 200 daily.
-2. Verify `alratraining.com` using the exact DNS records shown in its dashboard. Preserve the existing website records and ImprovMX MX records. Do not create multiple SPF TXT records at the same hostname.
-3. In each Gmail account, add `info@alratraining.com` under Settings > Accounts and Import > Send mail as, using SMTP2GO's authenticated SMTP server and TLS settings.
-4. Keep passwords and SMTP credentials private. The account owner should enter credentials and complete confirmation steps. Separate SMTP users for each person make access revocation easier.
-5. Test replies to an external inbox and inspect authentication results: SPF, DKIM and DMARC alignment. Verify the visible From address is `info@alratraining.com` and replies return through ImprovMX to both inboxes.
-6. Agree which person handles each enquiry to avoid duplicate replies. Receiving forwarded messages does not create shared Sent folders or shared read status.
+1. Open the existing Zoho webmail account and compose from `info@alratraining.com`.
+2. Address the reply to the visitor's email in the enquiry, not Formspree's notification sender. Check the recipient before sending.
+3. Keep incoming mail forwarding through ImprovMX to both personal inboxes. Do not replace the MX records to enable outgoing replies.
+4. Agree which authorised person handles each enquiry to avoid duplicate replies. Forwarding does not create shared read status in Gmail. Keep account credentials private and use available MFA.
+5. Outgoing delivery was tested, but full message-header SPF/DKIM/DMARC alignment and Inbox placement are not recorded as verified. Inspect these if delivery problems arise.
+6. Gmail "Send mail as", automated acknowledgements and SMTP2GO remain unconfigured. No additional paid service is required for the verified manual Zoho reply workflow; confirm the existing mailbox's plan and limits before changing it.
 
 ## Launch acceptance checklist
 
