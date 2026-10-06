@@ -1,4 +1,5 @@
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "393894584635";
+export const siteUrl = new URL((process.env.NEXT_PUBLIC_SITE_URL || "https://alratraining.com").trim()).origin;
 
 export const site = {
   name: "ALRA TRAINING INSTITUTE LTD/GTE",
@@ -6,7 +7,7 @@ export const site = {
   tagline: "Technical training and continuous professional development for the energy workforce.",
   description:
     "ALRA TRAINING INSTITUTE LTD/GTE develops skilled manpower for upstream, midstream and downstream oil and gas operations through technical training, certification pathways, refresher courses and project-based human capacity development.",
-  email: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "adedureo@gmail.com",
+  email: (process.env.NEXT_PUBLIC_COMPANY_EMAIL || "info@alratraining.com").trim(),
   phone: process.env.NEXT_PUBLIC_COMPANY_PHONE || "+39 389 458 4635",
   address: process.env.NEXT_PUBLIC_COMPANY_ADDRESS || "10 Journalist Estate Road, Arepo, Ogun State, Nigeria",
   hours: process.env.NEXT_PUBLIC_COMPANY_HOURS || "Monday–Friday, 8:00–17:00 (WAT)",

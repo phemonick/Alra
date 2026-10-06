@@ -24,7 +24,7 @@ export function PageHero({
 }) {
   return (
     <section className="relative min-h-[420px] overflow-hidden bg-[#0e2a1c] text-white sm:min-h-[500px]">
-      <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover object-center" />
+      <Image src={image} alt={alt} fill loading="eager" fetchPriority="high" sizes="100vw" className="object-cover object-center" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,18,.97)_0%,rgba(7,28,18,.84)_48%,rgba(7,28,18,.2)_100%)]" />
       <div className="relative mx-auto flex min-h-[420px] max-w-6xl items-center px-4 py-16 sm:min-h-[500px] sm:px-6">
         <div className="reveal max-w-2xl">

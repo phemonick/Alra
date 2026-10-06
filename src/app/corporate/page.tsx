@@ -6,6 +6,7 @@ import { PageHero } from "@/components/ui";
 import EnquiryForm from "@/components/EnquiryForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/corporate" },
   title: "Corporate Training",
   description:
     "Tailored oil and gas training for organisations — graduate trainee schemes, operations and maintenance workforce development, and supervisor upskilling from ALRA TRAINING INSTITUTE LTD/GTE.",

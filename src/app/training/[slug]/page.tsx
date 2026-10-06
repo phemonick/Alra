@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const p = programmeBySlug(slug);
   if (!p) return { title: "Programme not found" };
-  return { title: p.title, description: p.summary };
+  return { title: p.title, description: p.summary, alternates: { canonical: `/training/${p.slug}` } };
 }
 
 export default async function ProgrammePage({ params }: { params: Promise<{ slug: string }> }) {

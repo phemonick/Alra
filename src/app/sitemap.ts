@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { programmes } from "@/content/programmes";
+import { siteUrl } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = siteUrl;
   const pages = ["", "/about", "/training", "/hcd-tip", "/corporate", "/contact", "/privacy"];
   return [
     ...pages.map((path) => ({ url: `${baseUrl}${path}`, changeFrequency: "monthly" as const, priority: path === "" ? 1 : 0.8 })),

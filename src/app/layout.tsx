@@ -3,11 +3,10 @@ import { Libre_Baskerville, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { site } from "@/content/site";
+import { site, siteUrl } from "@/content/site";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-sans" });
 const libre = Libre_Baskerville({ subsets: ["latin"], variable: "--font-display", weight: ["400", "700"] });
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -7,11 +7,11 @@ Next.js 16 + TypeScript + Tailwind CSS 4 + Lucide icons + Zod validation.
 - All commercial/certification details (dates, fees, duration, venue, delivery mode, certification) are **configurable per programme** in `src/content/programmes.ts` and default to “Contact us for details” — nothing is invented.
 - In local development, enquiries are written as individual git-ignored JSON files under `data/enquiries/`. Production requires `ENQUIRY_WEBHOOK_URL`; the API returns a clear error instead of claiming success when delivery is not configured.
 - The approved phone and WhatsApp contact are included by default and can be overridden through the public environment variables. Brochure links render only when `NEXT_PUBLIC_BROCHURE_URL` is set.
-- Draft-stage programmes (from Entrepreneurship and Innovation Centre Ltd material) live in `draftProgrammes` in `src/content/programmes.ts` and on the unlinked, no-index `/drafts` review page — never in the public catalogue.
-- Three original, project-owned image assets are stored under `public/images/` and served locally through `next/image`.
+- Draft-stage programmes remain in source and on a development-only review page. `/drafts` returns 404 in production.
+- Three generated, illustrative training images are stored under `public/images/` and served locally through `next/image`. The footer identifies them as illustrative, not evidence of actual ALRA projects.
 
 ## Research basis (global + Nigeria)
-- **Nigeria:** NCDMB HCD framework — project-based HCD applies to contracts ≥ ~$1M; Training Implementation Plans (TIP/HCDP) combine classroom + practical + on-the-job training with certification; plans are operator/contractor-submitted for review. Field-readiness skills in demand include subsea, automation/control, production & maintenance (electrical/instrument/mechanical), QA/QC incl. NDT L1–3, drilling/well services, HSE and digital skills.
+- **Nigeria:** project-based HCD planning covers skills needs, classroom and practical phases, on-the-job learning, assessment and reporting. Confirm current NCDMB requirements and any project-specific approval obligations directly with the responsible operator before making regulatory commitments. The site does not claim NCDMB accreditation or approval.
 - **Global:** programme language is informed by widely used discipline practices while avoiding unsupported claims about accreditation, partnerships or external awards.
 - **B2B UX:** catalogue search + category filters, per-programme enquiry preselection (`/contact?subject=<slug>`), minimal required fields, RFQ-style proposal flow, answer-first HCD content.
 
@@ -29,7 +29,7 @@ npm run dev                  # http://localhost:3000
 
 ## Enquiry workflow
 - Client validation + server validation (`src/app/api/enquiries/route.ts`, Zod).
-- States: idle → sending (spinner) → success after confirmed delivery / error with entries retained in state and localStorage.
+- States: idle → sending (15-second timeout) → success after confirmed delivery / error with entries retained in state and session storage. Drafts older than 24 hours are discarded on reopening; legacy localStorage drafts are deleted.
 - Spam: honeypot field + minimum-fill-time trap (`ENQUIRY_MIN_FILL_SECONDS`).
 - Privacy notice inline under the form.
 
@@ -54,4 +54,11 @@ npm run dev                  # http://localhost:3000
 npm run lint
 npm run build && npm start
 ```
-Check desktop + mobile: nav (incl. hamburger), catalogue search/filters, programme pages, all three enquiry forms (success + failure retention), keyboard focus rings, `/drafts` no-index.
+Run `npm run test:quality` after a production build. Playwright starts an isolated production server on port 3110 and checks all public routes at 320, 375, 768 and 1440 pixels. It covers images, overflow, all axe findings, canonical URLs, internal links, keyboard navigation, API rejection cases and mocked delivery success/failure. Mocked delivery tests do not prove real email arrival. GitHub Actions repeats lint, build, runtime audit and browser checks.
+
+## Remaining external launch requirements
+- Connect a free enquiry-delivery provider within its quota and verify real receipt in both personal inboxes. Until configured, production submissions return 503 rather than false success; direct email and WhatsApp remain available.
+- Vercel Hobby excludes commercial use. Do not buy an upgrade without approval: choose a commercial-use-eligible free hosting plan and test its Next.js support before migration.
+- Confirm privacy retention, responsible staff access, genuine trainer credentials, approved photographs and attributable client feedback. Illustrative engagements are not completed projects; never invent results or endorsements.
+- Keep registrar renewal reminders and account recovery/MFA up to date. Verify production environment contact details after each deployment.
+- The full development dependency audit still reports a braces advisory through the Next ESLint plugin. npm currently offers no patched braces release; do not apply its proposed Next 14 downgrade. Runtime dependency audit is clean after the Next 16.3.8 update.

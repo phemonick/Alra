@@ -8,6 +8,7 @@ import { heroImages } from "@/content/site";
 import { Eyebrow } from "@/components/ui";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/" },
   title: "ALRA TRAINING INSTITUTE LTD/GTE | Oil & Gas Technical Training",
   description: "Practical training and continuous professional development for upstream, midstream and downstream oil and gas operations, including corporate learning and project-based HCD Training Implementation Plans.",
 };
@@ -38,16 +39,16 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-[570px] overflow-hidden bg-[#071c12] text-white sm:min-h-[660px]">
-        <Image src={heroImages.home} alt="Nigerian engineers receiving practical process equipment training" fill priority sizes="100vw" className="object-cover object-[64%_center]" />
+        <Image src={heroImages.home} alt="Nigerian engineers receiving practical process equipment training" fill loading="eager" fetchPriority="high" sizes="100vw" className="object-cover object-[64%_center]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,24,15,.98)_0%,rgba(5,24,15,.91)_42%,rgba(5,24,15,.34)_72%,rgba(5,24,15,.12)_100%)]" />
         <div className="relative mx-auto flex min-h-[570px] max-w-6xl items-center px-4 py-12 sm:min-h-[660px] sm:px-6 sm:py-16">
           <div className="reveal max-w-2xl">
             <p className="text-xs font-extrabold tracking-[0.16em] text-[#e3c860] uppercase">Oil and gas training institute</p>
-            <h1 className="display-type mt-5 text-4xl leading-[1.08] font-bold sm:text-6xl">Technical training for the work that keeps energy moving.</h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-white/85">ALRA TRAINING INSTITUTE LTD/GTE develops skilled manpower for upstream, midstream and downstream operations through practical technical training and continuous professional development.</p>
+            <h1 className="display-type mt-5 text-4xl leading-[1.08] font-bold sm:text-6xl">ALRA Training Institute</h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/85 sm:text-lg sm:leading-8">Technical training and refresher courses for upstream, midstream and downstream teams. Develop practical skills in drilling, subsea, maintenance, HSE and project delivery.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/training" className="inline-flex items-center justify-center gap-2 bg-[#c9a227] px-6 py-3.5 text-sm font-extrabold text-[#0e2a1c] hover:bg-[#e0c054]">Explore programmes <ArrowRight size={17} /></Link>
-              <Link href="/contact?subject=other" className="inline-flex items-center justify-center border border-white/45 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10">Request a proposal</Link>
+              <Link prefetch={false} href="/contact?subject=other" className="inline-flex items-center justify-center border border-white/45 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10">Request a proposal</Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/20 pt-5 text-sm text-white/70">
               <span>Operators and asset teams</span><span>EPC and service companies</span><span>Graduate and technician cohorts</span>
@@ -131,7 +132,7 @@ export default function Home() {
               <h2 className="display-type max-w-3xl text-3xl leading-tight font-bold text-[#0e2a1c] sm:text-4xl">What a well-scoped engagement can look like.</h2>
               <p className="mt-4 max-w-3xl leading-7 text-[#526159]">These examples illustrate how ALRA can structure common workforce requirements. The final scope, targets and evidence are agreed for each client.</p>
             </div>
-            <Link href="/contact?subject=corporate" className="inline-flex min-h-11 shrink-0 items-center gap-2 border-b-2 border-[#c9a227] text-sm font-extrabold text-[#0e2a1c] hover:text-[#1a5c3a]">Discuss your requirement <ArrowRight size={16} /></Link>
+            <Link prefetch={false} href="/contact?subject=corporate" className="inline-flex min-h-11 shrink-0 items-center gap-2 border-b-2 border-[#c9a227] text-sm font-extrabold text-[#0e2a1c] hover:text-[#1a5c3a]">Discuss your requirement <ArrowRight size={16} /></Link>
           </div>
 
           <div className="mt-10 divide-y divide-[#cbd6ce] border-y border-[#cbd6ce]">
@@ -213,7 +214,7 @@ export default function Home() {
       <section className="bg-[#c9a227]">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-12 sm:px-6 lg:flex-row lg:items-center">
           <div><p className="text-xs font-extrabold tracking-[0.15em] text-[#0e2a1c] uppercase">Start with the work requirement</p><h2 className="display-type mt-2 max-w-3xl text-2xl font-bold text-[#0e2a1c] sm:text-3xl">Tell us who needs to be ready, for what role and by when.</h2></div>
-          <Link href="/contact?subject=other" className="inline-flex shrink-0 items-center gap-2 bg-[#0e2a1c] px-6 py-3.5 text-sm font-extrabold text-white hover:bg-[#1a5c3a]">Request a proposal <ArrowRight size={17} /></Link>
+          <Link prefetch={false} href="/contact?subject=other" className="inline-flex shrink-0 items-center gap-2 bg-[#0e2a1c] px-6 py-3.5 text-sm font-extrabold text-white hover:bg-[#1a5c3a]">Request a proposal <ArrowRight size={17} /></Link>
         </div>
       </section>
     </>

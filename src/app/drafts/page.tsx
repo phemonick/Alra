@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { draftProgrammes } from "@/content/programmes";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 // It exists so reviewers can inspect draft-stage content before any decision
 // to publish. Do not link it publicly until each item is confirmed.
 export default function Drafts() {
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
       <p className="inline-block rounded-sm bg-amber-100 px-3 py-1 text-xs font-bold tracking-widest text-amber-900 uppercase">

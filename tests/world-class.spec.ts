@@ -42,6 +42,8 @@ test.describe("responsive quality", () => {
         documentWidth: document.documentElement.scrollWidth,
       }));
       expect(layout.documentWidth).toBeLessThanOrEqual(layout.viewport);
+      await expect(page.locator("main")).toHaveCount(1);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://alratraining.com${route === "/" ? "" : route}`);
 
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await page.waitForTimeout(150);
@@ -57,7 +59,7 @@ test.describe("responsive quality", () => {
         const runner = (window as unknown as { axe: { run: () => Promise<AxeResult> } }).axe;
         return runner.run();
       });
-      const highImpact = axe.violations.filter((item) => item.impact === "critical" || item.impact === "serious");
+      const highImpact = axe.violations;
       expect(highImpact, JSON.stringify(highImpact, null, 2)).toEqual([]);
 
       const timing = await page.evaluate(() => {
@@ -66,6 +68,7 @@ test.describe("responsive quality", () => {
       });
       expect(timing.domReady).toBeLessThan(3000);
       expect(timing.load).toBeLessThan(4000);
+      await testInfo.attach("local-production-timing", { body: JSON.stringify(timing), contentType: "application/json" });
 
       const name = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
       await page.evaluate(() => window.scrollTo(0, 0));
@@ -109,7 +112,7 @@ test("site identity, discovery files and internal links are complete", async ({ 
 
   await page.goto("/contact");
   const contactMain = page.locator("main");
-  await expect(contactMain.getByRole("link", { name: "adedureo@gmail.com" })).toBeVisible();
+  await expect(contactMain.getByRole("link", { name: "info@alratraining.com" })).toBeVisible();
   await expect(contactMain.getByRole("link", { name: "+39 389 458 4635" })).toHaveAttribute("href", "tel:+393894584635");
   await expect(contactMain.getByRole("link", { name: "Send us a WhatsApp message" })).toHaveAttribute(
     "href",
@@ -127,6 +130,7 @@ test("core interactions remain keyboard and touch friendly", async ({ page }) =>
     await expect(page.getByRole("navigation", { name: "Mobile" })).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(page.getByRole("navigation", { name: "Mobile" })).toBeHidden();
+    await expect(menu).toBeFocused();
   }
 
   await page.getByText("Can training be delivered at our site?").click();
@@ -139,6 +143,8 @@ test("core interactions remain keyboard and touch friendly", async ({ page }) =>
     await page.getByRole("button", { name: "Operations & Maintenance" }).click();
   }
   await expect(page.getByText("Showing 3 of 11 programmes in Operations & Maintenance.")).toBeVisible();
+  await page.getByLabel("Search training programmes").fill("no-such-programme-qa");
+  await expect(page.getByText("No programmes match your search.")).toBeVisible();
 
   await page.goto("/contact");
   await page.getByRole("button", { name: "Submit enquiry" }).click();

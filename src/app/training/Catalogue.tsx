@@ -97,7 +97,7 @@ export default function Catalogue() {
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-[11px] font-bold tracking-widest text-[#1a5c3a] uppercase">{p.category}</p>
-                  <h3 className="mt-1.5 text-base font-semibold text-[#0e2a1c] group-hover:underline">{p.title}</h3>
+                  <h2 className="mt-1.5 text-base font-semibold text-[#0e2a1c] group-hover:underline">{p.title}</h2>
                   <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-[#4b5a52]">{p.summary}</p>
                   <span className="mt-4 text-sm font-semibold text-[#1a5c3a]">View programme →</span>
                 </div>

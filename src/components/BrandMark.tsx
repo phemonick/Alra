@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <Link href="/" className="group flex min-w-0 items-center gap-3" aria-label="ALRA Training Institute Ltd/Gte home">
+    <Link href="/" className="group flex min-w-0 items-center gap-3">
       <span
         aria-hidden
         className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden border border-[#d8bb56]/50 bg-[#c9a227] text-[#0e2a1c]"

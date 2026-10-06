@@ -14,6 +14,7 @@ import { PageHero } from "@/components/ui";
 import EnquiryForm from "@/components/EnquiryForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hcd-tip" },
   title: "HCD & Training Implementation Plans (TIP)",
   description:
     "ALRA TRAINING INSTITUTE LTD/GTE helps operators and EPC contractors design project-specific Human Capacity Development Training Implementation Plans — needs assessment, curriculum, scheduling, assessment, monitoring and reporting.",

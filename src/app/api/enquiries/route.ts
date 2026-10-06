@@ -1,25 +1,20 @@
 import { z } from "zod";
 import { promises as fs } from "fs";
 import path from "path";
+import { randomUUID } from "crypto";
+import { enquirySchema as fieldsSchema } from "@/lib/enquiry";
 
-const enquirySchema = z.object({
-  name: z.string().trim().min(2).max(120),
-  company: z.string().trim().min(2).max(160),
-  email: z.string().trim().email().max(160),
-  phone: z.string().trim().max(40).optional().default(""),
-  subject: z.string().trim().min(1).max(120),
-  participants: z.string().trim().max(12).optional().default(""),
-  timing: z.string().trim().max(120).optional().default(""),
-  message: z.string().trim().min(20).max(5000),
+const enquirySchema = fieldsSchema.extend({
   context: z.string().trim().max(60).optional().default("general"),
   website: z.string().max(200).optional().default(""), // honeypot
-  fillSeconds: z.number().optional().default(999),
+  fillSeconds: z.number().finite().nonnegative(),
 });
 
 async function forwardToWebhook(url: string, record: Record<string, unknown>) {
+  if (process.env.NODE_ENV === "production" && new URL(url).protocol !== "https:") throw new Error("HTTPS required");
   const response = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...(process.env.ENQUIRY_WEBHOOK_TOKEN ? { Authorization: `Bearer ${process.env.ENQUIRY_WEBHOOK_TOKEN}` } : {}) },
     body: JSON.stringify(record),
     signal: AbortSignal.timeout(10000),
   });
@@ -27,8 +22,16 @@ async function forwardToWebhook(url: string, record: Record<string, unknown>) {
 }
 
 export async function POST(req: Request) {
+  const origin = req.headers.get("origin");
+  if (origin && origin !== new URL(req.url).origin) return Response.json({ ok: false, error: "Please submit from our website." }, { status: 403 });
+  if (!req.headers.get("content-type")?.includes("application/json")) return Response.json({ ok: false, error: "JSON is required." }, { status: 415 });
+  let body: unknown;
   try {
-    const body = await req.json();
+    const text = await req.text();
+    if (new TextEncoder().encode(text).length > 24000) return Response.json({ ok: false, error: "Enquiry is too large." }, { status: 413 });
+    body = JSON.parse(text);
+  } catch { return Response.json({ ok: false, error: "Please check your enquiry." }, { status: 400 }); }
+  try {
     const parsed = enquirySchema.safeParse(body);
     if (!parsed.success) {
       return Response.json(
@@ -55,13 +58,13 @@ export async function POST(req: Request) {
     }
 
     const record = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      id: randomUUID(),
       receivedAt: new Date().toISOString(),
       ...v,
       website: undefined,
     };
 
-    const webhookUrl = process.env.ENQUIRY_WEBHOOK_URL;
+    const webhookUrl = process.env.ENQUIRY_WEBHOOK_URL?.trim();
     if (webhookUrl) {
       await forwardToWebhook(webhookUrl, record as Record<string, unknown>);
     } else if (process.env.NODE_ENV === "production") {

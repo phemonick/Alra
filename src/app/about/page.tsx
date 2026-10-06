@@ -6,6 +6,7 @@ import { heroImages } from "@/content/site";
 import { PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About",
   description:
     "ALRA TRAINING INSTITUTE LTD/GTE develops skilled manpower for upstream, midstream and downstream oil and gas operations and supports continuous professional development.",

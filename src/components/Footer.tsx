@@ -12,7 +12,7 @@ export default function Footer() {
             <BrandMark />
             <p className="mt-5 max-w-xl text-base leading-7 text-white/70">Technical training and human capacity development for the people who plan, build, operate and maintain energy projects.</p>
           </div>
-          <Link href="/contact?subject=other" className="inline-flex w-fit items-center gap-2 border-b border-[#c9a227] pb-1 text-sm font-extrabold text-white hover:text-[#e3c860]">Discuss a training need <ArrowUpRight size={16} /></Link>
+          <Link prefetch={false} href="/contact?subject=other" className="inline-flex w-fit items-center gap-2 border-b border-[#c9a227] pb-1 text-sm font-extrabold text-white hover:text-[#e3c860]">Discuss a training need <ArrowUpRight size={16} /></Link>
         </div>
 
         <div className="grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -46,6 +46,7 @@ export default function Footer() {
             <p>Technical training · Corporate learning · HCD implementation</p>
           </div>
         </div>
+        <p className="mt-3 text-xs text-white/60">Training imagery is illustrative, not a record of completed ALRA engagements.</p>
       </div>
     </footer>
   );

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui";
 import Catalogue from "./Catalogue";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/training" },
   title: "Training Programmes",
   description:
     "Searchable catalogue of ALRA TRAINING INSTITUTE LTD/GTE training programmes — drilling, subsea, automation, operations and maintenance, project management, document control, HSE and NDT.",

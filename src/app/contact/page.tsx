@@ -5,6 +5,7 @@ import { PageHero } from "@/components/ui";
 import EnquiryForm from "@/components/EnquiryForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact",
   description:
     "Contact ALRA TRAINING INSTITUTE LTD/GTE by enquiry form, email, phone or WhatsApp to discuss training programmes and request a proposal.",

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Notice",
   description: "How ALRA TRAINING INSTITUTE LTD/GTE handles information submitted through this website.",
 };
@@ -18,7 +19,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
         <div className="space-y-9 text-sm leading-7 text-[#526159]">
           <section>
             <h2 className="text-xl font-bold text-[#0e2a1c]">Information you provide</h2>
@@ -27,6 +28,10 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-bold text-[#0e2a1c]">How we use it</h2>
             <p className="mt-2">We use enquiry information to understand your request, respond to you, prepare or discuss a proposal, and keep an appropriate record of the conversation. We do not sell information submitted through this website.</p>
+          </section>
+          <section>
+            <h2 className="text-xl font-bold text-[#0e2a1c]">Drafts on your device</h2>
+            <p className="mt-2">While you complete a form, a draft is kept in session storage in this browser tab so you can retry after a failed submission. Drafts older than 24 hours are discarded when the form next opens. The draft is removed after a successful submission and cleared when the browser session ends. Do not include passwords, identity documents or sensitive personal information in your enquiry.</p>
           </section>
           <section>
             <h2 className="text-xl font-bold text-[#0e2a1c]">Storage and service providers</h2>
@@ -42,7 +47,7 @@ export default function PrivacyPage() {
           </section>
         </div>
         <Link href="/contact" className="mt-10 inline-flex min-h-11 items-center border-b-2 border-[#c9a227] text-sm font-bold text-[#0e2a1c] hover:text-[#1a5c3a]">Return to contact</Link>
-      </main>
+      </div>
     </>
   );
 }
