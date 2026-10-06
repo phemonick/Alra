@@ -35,7 +35,7 @@ export default function Contact() {
             <li className="flex gap-3">
               <Phone size={17} className="mt-0.5 shrink-0 text-[#1a5c3a]" aria-hidden />
               <span>
-                <span className="block font-semibold text-[#0e2a1c]">Phone</span>
+                <span className="block font-semibold text-[#0e2a1c]">Phone calls</span>
                 <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-[#1a5c3a] hover:underline">{site.phone}</a>
               </span>
             </li>
@@ -60,7 +60,7 @@ export default function Contact() {
             rel="noreferrer"
             className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-[#1a5c3a] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#12452b]"
           >
-            <MessageCircle size={18} aria-hidden /> Send us a WhatsApp message
+            <MessageCircle size={18} className="shrink-0" aria-hidden /> WhatsApp: {site.whatsappDisplay}
           </a>
           <div className="border-l-2 border-[#c9a227] pl-4 text-sm leading-6 text-[#526159]">
             <p className="font-semibold text-[#0e2a1c]">Information available on request</p>

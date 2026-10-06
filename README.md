@@ -5,8 +5,8 @@ Next.js 16 + TypeScript + Tailwind CSS 4 + Lucide icons + Zod validation.
 ## Assumptions
 - No approved logo file was supplied: the site uses a restrained ALRA monogram and wordmark until the final identity is available.
 - All commercial/certification details (dates, fees, duration, venue, delivery mode, certification) are **configurable per programme** in `src/content/programmes.ts` and default to “Contact us for details” — nothing is invented.
-- In local development, enquiries are written as individual git-ignored JSON files under `data/enquiries/`. Production requires `ENQUIRY_WEBHOOK_URL`; the API returns a clear error instead of claiming success when delivery is not configured.
-- The approved phone and WhatsApp contact are included by default and can be overridden through the public environment variables. Brochure links render only when `NEXT_PUBLIC_BROCHURE_URL` is set.
+- In local development, unconfigured enquiries are written as individual git-ignored JSON files under `data/enquiries/`. Production requires `FORMSPREE_FORM_ID` or an alternative `ENQUIRY_WEBHOOK_URL`; the API returns a clear error instead of claiming success when delivery is not configured.
+- Calls go to +234 906 518 8808; WhatsApp goes to +39 389 458 4635. These are separate settings and can be overridden through public environment variables. Brochure links render only when `NEXT_PUBLIC_BROCHURE_URL` is set.
 - Draft-stage programmes remain in source and on a development-only review page. `/drafts` returns 404 in production.
 - Three generated, illustrative training images are stored under `public/images/` and served locally through `next/image`. The footer identifies them as illustrative, not evidence of actual ALRA projects.
 
@@ -34,10 +34,11 @@ npm run dev                  # http://localhost:3000
 - Privacy notice inline under the form.
 
 ## Integrations still needing credentials
-- `ENQUIRY_WEBHOOK_URL` — required for production delivery through Formspree, Make, Zapier or a company backend.
+- `FORMSPREE_FORM_ID` — preferred production delivery, notifying verified `info@alratraining.com` which forwards to both personal inboxes. See `EMAIL_SETUP.md` for setup, quotas and live verification.
+- `ENQUIRY_WEBHOOK_URL` — alternative JSON webhook for a company backend; ignored when the Formspree ID is set.
 - Real SMTP/transactional-email provider if you want auto-replies (not yet wired).
 - Brochure PDF URL, when an approved brochure is available.
-- Production database (e.g. Postgres via Prisma/Supabase) if JSON-file storage is insufficient — the API route is isolated so this is a small swap.
+- Formspree provides hosted enquiry storage; a separate production database is not required for this setup. Local JSON files are not production storage.
 - Analytics (e.g. Plausible/GA) — not yet added.
 
 ## Business details needed before launch

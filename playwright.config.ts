@@ -22,7 +22,7 @@ export default defineConfig({
     url: "http://127.0.0.1:3110",
     reuseExistingServer: false,
     timeout: 60000,
-    env: { NEXT_PUBLIC_COMPANY_EMAIL: "info@alratraining.com", ENQUIRY_WEBHOOK_URL: "" },
+    env: { NEXT_PUBLIC_COMPANY_EMAIL: "info@alratraining.com", ENQUIRY_WEBHOOK_URL: "", FORMSPREE_FORM_ID: "" },
   },
   projects: [
     {

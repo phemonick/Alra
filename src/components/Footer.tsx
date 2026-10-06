@@ -30,7 +30,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-3 text-sm">
               <li><a className="hover:text-white" href={`mailto:${site.email}`}>{site.email}</a></li>
               <li><a className="hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a></li>
-              <li><a className="hover:text-white" href={whatsappHref()} target="_blank" rel="noreferrer">Send a WhatsApp message</a></li>
+              <li><a className="hover:text-white" href={whatsappHref()} target="_blank" rel="noreferrer">WhatsApp: {site.whatsappDisplay}</a></li>
               <li>{site.address}</li>
             </ul>
           </div>

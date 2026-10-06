@@ -35,11 +35,12 @@ export default function PrivacyPage() {
           </section>
           <section>
             <h2 className="text-xl font-bold text-[#0e2a1c]">Storage and service providers</h2>
-            <p className="mt-2">Information may be processed by the website hosting, communications or enquiry-handling services used to operate this site. Access should be limited to people and providers who need it for those purposes.</p>
+            <p className="mt-2">Website enquiries are handled through Formspree, which stores submissions and sends notifications to our business email address. ImprovMX forwards those messages to the Gmail inboxes used by our team. Our website host also processes requests needed to operate the site. These providers may process information outside Nigeria. We use them to receive and respond to requests, and limit access to the people who handle those requests.</p>
           </section>
           <section>
             <h2 className="text-xl font-bold text-[#0e2a1c]">Retention and your choices</h2>
             <p className="mt-2">We keep enquiry information only for as long as it remains useful for the request, business records and any applicable obligations. You may contact us to ask about, correct or request deletion of information you have submitted, subject to records we need to retain.</p>
+            <p className="mt-2">Formspree&apos;s free plan provides 30 days of submission history. Copies in our team&apos;s email inboxes and any business records may remain longer; a deletion request should therefore cover those copies as well as the submission dashboard. We do not add enquiry contacts to marketing lists without a separate choice.</p>
           </section>
           <section className="border-l-4 border-[#c9a227] bg-[#f4f7f5] p-5">
             <h2 className="text-xl font-bold text-[#0e2a1c]">Contact</h2>

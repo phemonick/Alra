@@ -108,13 +108,14 @@ test("site identity, discovery files and internal links are complete", async ({ 
   const organisation = await page.locator('script[type="application/ld+json"]').textContent();
   expect(organisation).toContain("ALRA TRAINING INSTITUTE LTD/GTE");
   expect(organisation).toContain("10 Journalist Estate Road");
-  expect(organisation).toContain("+39 389 458 4635");
+  expect(organisation).toContain("+234 906 518 8808");
 
   await page.goto("/contact");
   const contactMain = page.locator("main");
   await expect(contactMain.getByRole("link", { name: "info@alratraining.com" })).toBeVisible();
-  await expect(contactMain.getByRole("link", { name: "+39 389 458 4635" })).toHaveAttribute("href", "tel:+393894584635");
-  await expect(contactMain.getByRole("link", { name: "Send us a WhatsApp message" })).toHaveAttribute(
+  await expect(contactMain.getByRole("link", { name: "+234 906 518 8808" })).toHaveAttribute("href", "tel:+2349065188808");
+  await expect(page.locator('a[href="tel:+393894584635"]')).toHaveCount(0);
+  await expect(contactMain.getByRole("link", { name: "WhatsApp: +39 389 458 4635" })).toHaveAttribute(
     "href",
     /^https:\/\/wa\.me\/393894584635\?text=/
   );

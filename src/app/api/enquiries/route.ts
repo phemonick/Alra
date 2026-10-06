@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import { enquirySchema as fieldsSchema } from "@/lib/enquiry";
+import { deliverToFormspree, EnquiryDeliveryError } from "@/lib/enquiry-delivery";
 
 const enquirySchema = fieldsSchema.extend({
   context: z.string().trim().max(60).optional().default("general"),
@@ -64,8 +65,11 @@ export async function POST(req: Request) {
       website: undefined,
     };
 
+    const formId = process.env.FORMSPREE_FORM_ID?.trim();
     const webhookUrl = process.env.ENQUIRY_WEBHOOK_URL?.trim();
-    if (webhookUrl) {
+    if (formId) {
+      await deliverToFormspree(formId, record);
+    } else if (webhookUrl) {
       await forwardToWebhook(webhookUrl, record as Record<string, unknown>);
     } else if (process.env.NODE_ENV === "production") {
       return Response.json(
@@ -80,7 +84,10 @@ export async function POST(req: Request) {
     }
 
     return Response.json({ ok: true });
-  } catch {
+  } catch (error) {
+    if (error instanceof EnquiryDeliveryError) {
+      return Response.json({ ok: false, error: error.message }, { status: error.status });
+    }
     return Response.json(
       { ok: false, error: "We could not deliver your enquiry. Please try again or email us directly." },
       { status: 500 }

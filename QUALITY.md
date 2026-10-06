@@ -4,7 +4,7 @@ Review date: 6 October 2026.
 
 ## Results
 
-Lint and production build passed. All 96 Playwright checks passed in the final run. Runtime `npm audit --omit=dev` reported zero vulnerabilities.
+Lint and production build passed. The Formspree integration run passed all 112 Playwright checks across four viewports. The earlier runtime `npm audit --omit=dev` reported zero vulnerabilities; this integration adds no dependencies.
 
 The final local Lighthouse 13.5.0 homepage run recorded:
 
@@ -47,7 +47,8 @@ Playwright manages a production test server on port 3110. On macOS it uses insta
 ## Limits And Follow-Up
 
 - Lighthouse measurements are local lab checks of the homepage, not field Core Web Vitals or a guarantee for all devices, networks or browsers. Real iOS/Safari and Android device testing remains useful.
-- Mocked form delivery proves UI handling, not actual email arrival. Production delivery is still unconfigured and deliberately returns 503 rather than false success. Connect a free provider within its quota and test receipt in both Gmail inboxes before treating the enquiry workflow as launch-ready.
+- Mocked form delivery proves UI/API handling, not actual email arrival. Formspree is configured to notify verified `info@alratraining.com`, which forwards to both Gmail inboxes. Production environment configuration is set; deployment and real submission/receipt verification must be recorded separately before treating the enquiry workflow as launch-ready. The isolated test server deliberately has delivery configuration unset to test honest 503 responses.
+- Formspree tests cover all three page contexts, complete field forwarding, readable programme labels, malformed endpoints, HTTP rejection, rate limits, invalid receipts and network failure. Free-plan over-limit acceptance does not guarantee notification delivery; see `EMAIL_SETUP.md`.
 - Honeypot and fill-time checks are basic spam deterrents, not a durable distributed rate limiter. Review provider abuse controls before activating delivery.
 - Runtime dependencies audit clean after upgrading Next to 16.3.8 and source-map-js. Development-only tooling still has a braces advisory through the Next ESLint plugin; npm currently has no patched braces release. Its suggested Next 14 downgrade is not an appropriate fix.
 - Confirm actual privacy retention, authorised staff access and account recovery arrangements with the business.
